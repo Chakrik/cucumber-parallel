@@ -16,40 +16,41 @@ import cucumber.api.java.en.When;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class WikipediaSteps extends BaseSteps {
+public class WikipediaSteps extends TestBase {
 
     @Before
     public void before() {
-        startWebDriver();
+//        startWebDriver();
+    		getDriver().navigate().to("http://en.wikipedia.org");
     }
-
-    @After
-    public void after() {
-        stopWebDriver();
-    }
+//
+//    @After
+//    public void after() {
+//        stopWebDriver();
+//    }
 
     @Given("^Enter search term '(.*?)'$")
     public void searchFor(String searchTerm) {
-        WebElement searchField = driver.findElement(By.id("searchInput"));
+        WebElement searchField = getDriver().findElement(By.id("searchInput"));
         searchField.sendKeys(searchTerm);
     }
 
     @When("^Do search$")
     public void clickSearchButton() {
-        WebElement searchButton = driver.findElement(By.id("searchButton"));
+        WebElement searchButton = getDriver().findElement(By.id("searchButton"));
         searchButton.click();
         wait(2);
     }
 
     @Then("^Multiple results are shown for '(.*?)'$")
     public void assertMultipleResults(String searchResults) {
-        WebElement firstSearchResult = driver.findElement(By.cssSelector("div#mw-content-text.mw-content-ltr p"));
+        WebElement firstSearchResult = getDriver().findElement(By.cssSelector("div#mw-content-text.mw-content-ltr p"));
         assertEquals(searchResults, firstSearchResult.getText());
     }
 
     @Then("^Single result is shown for '(.*?)'$")
     public void assertSingleResult(String searchResults) {
-        WebElement articleName = driver.findElement(By.id("firstHeading"));
+        WebElement articleName = getDriver().findElement(By.id("firstHeading"));
         assertEquals(articleName.getText(), searchResults);
     }
 
@@ -57,7 +58,7 @@ public class WikipediaSteps extends BaseSteps {
     public void assertGoodArticle(String isNot) {
         boolean isGood = isNot != null && "".equals(isNot);
         try {
-            driver.findElement(By.cssSelector("div#mw-indicator-good-star.mw-indicator a img"));
+            getDriver().findElement(By.cssSelector("div#mw-indicator-good-star.mw-indicator a img"));
             assertTrue(isGood);
         } catch (NoSuchElementException enfe) {
             assertTrue(!isGood);
@@ -66,7 +67,7 @@ public class WikipediaSteps extends BaseSteps {
 
     @Then("^Current date is shown$")
     public void checkCurrentDate() {
-        WebElement element = driver.findElement(By.cssSelector("div#mp-otd p b a"));
+        WebElement element = getDriver().findElement(By.cssSelector("div#mp-otd p b a"));
 
         String fullFormat = "%s";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM d");

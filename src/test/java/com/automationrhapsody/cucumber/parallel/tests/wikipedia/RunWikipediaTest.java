@@ -4,8 +4,9 @@ import org.junit.runner.RunWith;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
 
-@RunWith(Cucumber.class)
+//@RunWith(Cucumber.class) --JUnit
 @CucumberOptions(
     format = {
         "json:target/cucumber/wikipedia.json",
@@ -14,5 +15,5 @@ import cucumber.api.junit.Cucumber;
     },
     tags = {"~@ignored"}
 )
-public class RunWikipediaTest {
+public class RunWikipediaTest extends TestBase {
 }
