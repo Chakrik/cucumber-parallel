@@ -55,11 +55,13 @@ public class SeleniumStepdefs {
   private String hubHost = "";
   private String hubPort = "";
 
+  
 
   @Before
   public void before(Scenario scenario) {
-    this.scenario = scenario;
-    this.website = System.getProperty("website");
+  
+	  this.scenario = scenario;
+	  this.website = System.getProperty("website");
     this.hubHost = System.getProperty("hubHost");
     this.hubPort = System.getProperty("hubPort");
   }
